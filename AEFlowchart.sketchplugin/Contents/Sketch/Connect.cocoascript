@@ -95,7 +95,7 @@ function drawOneConnection(twoSteps)
   // add border
   var lineShapeStyle = [lineShape style];
   var borders = [lineShapeStyle borders];
-  if([borders count] <= 0) [borders addNewStylePart];
+  if([borders count] <= 0) lineShapeStyle.addStylePartOfType(1);
   var border = [lineShapeStyle border];
   [border setColor:[MSColor colorWithSVGString:readValueForKey(Keys.connectionLineColorKey)]];
   [border setThickness:readValueForKey(Keys.connectionLineThicknessKey)];
@@ -129,9 +129,10 @@ function getConnectionsGroup(parentGroup)
 
   // create group if not exists
   if (connectionsGroup === null) {
-    connectionsGroup = [parentGroup addLayerOfType:"group"];
+    connectionsGroup = [[MSLayerGroup alloc] init];
     [connectionsGroup setName:"AEConnections"];
     [connectionsGroup setIsLocked:true];
+    [parentGroup addLayers:[connectionsGroup]];
   }
 
   return connectionsGroup;
